@@ -48,3 +48,5 @@ This project uses an RC controller to trigger a confetti sprayer attachment moun
 3. The Arduino reads the PWM signal on pin D2.
 4. When the pulse width exceeds 1700 µs, a trigger is registered and the motor rotates 90° anticlockwise, aligning the disc holes and releasing confetti.
 5. On the next trigger, the motor rotates 90° clockwise, closing the holes.
+  ![Output](Serial_moniter_output.png)
+
