@@ -1,0 +1,37 @@
+python3 << 'PYEOF'
+code = """import cv2
+import numpy as np
+net = cv2.dnn.readNet("yolov3-tiny.weights","yolov3-tiny.cfg")
+f = open("coco.names","r")
+classes = f.readlines()
+f.close()
+layer_names = net.getLayerNames()
+output_layers = [layer_names[i[0]-1] for i in net.getUnconnectedOutLayers()]
+cap = cv2.VideoCapture("test_video.mp4")
+frame_count = 0
+total_persons = 0
+ret,img = cap.read()
+while ret:
+    frame_count += 1
+    blob = cv2.dnn.blobFromImage(img,0.00392,(416,416),(0,0,0),True,crop=False)
+    net.setInput(blob)
+    outs = net.forward(output_layers)
+    persons = 0
+    for out in outs:
+        for d in out:
+            s = d[5:]
+            c = int(s.argmax())
+            if s[c] > 0.7 and classes[c].strip() == "person":
+                persons += 1
+    if persons > 0:
+        total_persons += persons
+        print("Frame",frame_count,"people:",persons)
+    ret,img = cap.read()
+print("Total frames:",frame_count)
+print("Total person detections:",total_persons)
+print("Done!")
+cap.release()
+"""
+open("detect.py","w").write(code)
+print("File created!")
+PYEOF
