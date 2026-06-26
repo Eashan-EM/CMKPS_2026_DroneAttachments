@@ -1,0 +1,22 @@
+cat > detect.py << 'EOF'
+import cv2
+import numpy as np
+net = cv2.dnn.readNet("yolov3-tiny.weights","yolov3-tiny.cfg")
+f = open("coco.names","r")
+classes = f.readlines()
+f.close()
+layer_names = net.getLayerNames()
+output_layers = [layer_names[i[0]-1] for i in net.getUnconnectedOutLayers()]
+img = cv2.imread("test.jpg")
+img = cv2.resize(img,(416,416))
+blob = cv2.dnn.blobFromImage(img,0.00392,(416,416),(0,0,0),True,crop=False)
+net.setInput(blob)
+outs = net.forward(output_layers)
+for out in outs:
+ for detection in out:
+  scores = detection[5:]
+  class_id = int(scores.argmax())
+  if scores[class_id] > 0.5:
+   print("Detected:",classes[class_id].strip())
+print("Done!")
+EOF
