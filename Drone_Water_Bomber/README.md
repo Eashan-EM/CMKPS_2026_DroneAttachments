@@ -1,6 +1,7 @@
 # Introduction
 
 This project uses an RC controller to trigger a confetti sprayer attachment mounted on a drone. The system uses a rotating disc mechanism driven by a stepper motor to release confetti on command.
+![drone](Drone.png)
 
 ---
 
@@ -31,6 +32,8 @@ This project uses an RC controller to trigger a confetti sprayer attachment moun
 5. Connect the 28BYJ-48 stepper motor to the ULN2003A driver output.
 6. Power the driver from the Arduino's 5V and GND pins.
 
+![circuit](circuit_diagram.png)
+
 ## Assembling the Disc Mechanism
 
 1. Insert the inner disc into the container.
@@ -46,3 +49,5 @@ This project uses an RC controller to trigger a confetti sprayer attachment moun
 3. The Arduino reads the PWM signal on pin D2.
 4. When the pulse width exceeds 1700 µs, a trigger is registered and the motor rotates 90° anticlockwise, aligning the disc holes and releasing confetti.
 5. On the next trigger, the motor rotates 90° clockwise, closing the holes.
+  ![Output](Serial_moniter_output.png)
+
