@@ -1,6 +1,7 @@
 # Introduction
 
 This project uses an RC controller to trigger a confetti sprayer attachment mounted on a drone. The system uses a rotating disc mechanism driven by a stepper motor to release confetti on command.
+![drone](Drone.png)
 
 ---
 
